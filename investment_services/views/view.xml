@@ -2,7 +2,7 @@
 <odoo>
 	<data>
  <record model="ir.ui.view" id="resource_kanban_view">
-    <field name="name">requests</field>
+    <field name="name">all requests</field>
     <field name="model">is.requests</field>
     <field name="type">kanban</field>
     <field name="arch" type="xml">
