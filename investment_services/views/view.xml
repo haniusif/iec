@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+ <record model="ir.ui.view" id="resource_kanban_view">
+    <field name="name">requests</field>
+    <field name="model">is.requests</field>
+    <field name="type">kanban</field>
+    <field name="arch" type="xml">
+        <kanban create="false" >
+            <templates >
+                <t t-name="kanban-box">
+                    <div   class="oe_resource_vignette oe_kanban_global_click " >
+                   <div style="padding-left:10px" t-attf-class="oe_kanban_content ">
+<label for="available" t-attf-class="oe_kanban_status oe_kanban_status_green pull-right "/>
+
+  <b style="padding-left:10px" >
+  	<i class="fa fa-user fa-lg" aria-hidden="true"></i>
+  investor name:</b>
+ <field name="investor_name"   />
+<br/>
+   <b style="padding-left:10px" >
+   	<i class="fa fa-phone fa-lg" aria-hidden="true"></i>
+   	  Clinic Name:</b>
+      <field name="investor_phone"/>
+     <br/>
+ 
+<div >
+
+</div>
+
+                                </div>
+
+                      </div>                      
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>  
+
+
+
+
+
+
+
+
+		<record id="iec_is_requests_form" model="ir.ui.view">
+			<field name="name">requests form</field>
+			<field name="model">is.requests</field> 
+			<field name="arch" type="xml">
+				<form string="requests form">
+					<header>
+                       
+					</header>
+					<sheet>
+						
+	
+                      
+							<group string="Basic Data">
+								<field name="investor_id"/>
+								<field name="investor_name"/>
+								<field name="investor_phone"/>
+								<field name="investor_gender" widget="radio"/>
+							 
+
+
+							</group>
+ 
+
+							<group>
+
+<field name="investor_address"/>
+
+<field name="lStatus"/>
+<field name="sector"/>
+<field name="isic_codes"/>
+<field name="investor_email" widget="email"/>
+<field name="worker"/>
+<field name="capital"/>
+<field name="work_l_status"/>
+   <field name="company_img"   style="max-width:100px;max-height:117px;"/>
+
+
+							</group>
+
+
+					</sheet>
+
+				</form>
+			</field>
+		</record>
+
+
+
+
+
+
+
+		
+
+		<record id="iec_is_requests_search" model="ir.ui.view">
+			<field name="name">requests Search</field>
+			<field name="model">is.requests</field>
+			<field name="arch" type="xml">
+				<search>
+				 
+					<field name="sector"/>
+					<filter string="agricultural" domain="[('sector','=','agricultural')]"/>
+					<filter string="service" domain="[('sector','=','service')]"/>
+					<filter string="Artificial" domain="[('sector','=','Artificial')]"/>
+             
+
+             		<group>
+						<filter string="sector" domain="[]" context="{'group_by':'sector'}"/>
+						<filter string="inv_type" domain="[]" context="{'group_by':'inv_type'}"/>
+					</group>
+			 
+				</search>
+			</field>
+		</record>
+
+
+
+	 
+		<record id="iec_is_requests_tree" model="ir.ui.view">
+			<field name="name">requests Tree</field>
+			<field name="model">is.requests</field>
+
+			<field name="arch" type="xml">
+				<tree colors="blue:sector == 'service';green:sector=='Artificial';red:sector == 'agricultural'" >
+					<field name="investor_name" string="investor name"/>
+					<field name="investor_phone" />
+					<field name="investor_gender"/>
+					<field name="lStatus"  />
+					<field name="inv_type"   />
+					<field name="sector"   />
+				</tree>
+			</field>
+		</record>
+
+
+
+
+			<record id="iec_is_requests_action" model="ir.actions.act_window">
+			<field name="name">List of requests</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">is.requests</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,kanban,form</field>
+		</record>
+
+
+			<record id="iec_is_new_request_action" model="ir.actions.act_window">
+			<field name="name">List of requests</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">is.requests</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+		</record>
+
+
+
+
+			<record id="iec_is_investors_action" model="ir.actions.act_window">
+			<field name="name">List of investors</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">is.investors</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+<menuitem id="iec_is_menu" name="IS" action="iec_is_new_request_action" />
+
+<menuitem id="iec_is_requests_menu" name="Requests" parent="iec_is_menu"  />
+
+<menuitem id="iec_is_requests_child_1"
+                  name="New Request" 
+                  parent="iec_is_requests_menu" 
+                  action="iec_is_new_request_action"  />
+
+
+
+<menuitem id="iec_is_requests_child_2"
+                  name="All Requests" 
+                  parent="iec_is_requests_menu" 
+                  action="iec_is_requests_action"  />
+
+
+    <menuitem id="iec_is_investors_menu" name="investors" parent="iec_is_menu"  />
+
+<menuitem id="iec_is_investors_child_1"
+                  name="investors" 
+                  parent="iec_is_investors_menu" 
+                  action="iec_is_investors_action"  />
+
+	</data>
+</odoo>
